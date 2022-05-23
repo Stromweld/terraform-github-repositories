@@ -4,17 +4,15 @@ on:
   push:
 
 jobs:
-  linters: markdown-lint, terraform-lint, terraform-fmt, terraform-validate
-
-#  tests:
-#    ...
-
   check:
     if: always()
 
     needs:
-      - linters
-#      - tests
+      - markdown-lint
+      - terraform-lint
+      - terraform-fmt
+      - terraform-validate
+      - yaml-lint
 
     runs-on: Ubuntu-latest
 
