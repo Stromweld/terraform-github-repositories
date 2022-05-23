@@ -4,33 +4,21 @@ on:
   push:
 
 jobs:
-  build:
-    ...
-
-  docs:
-    ...
-
   linters:
-    ...
+    - markdown-lint
+    - terraform-lint
+    - terraform-fmt
+    - terraform-validate
 
-  package-linters:
-    needs:
-      - build
-    ...
-
-  tests:
-    needs:
-      - build
-    ...
+#  tests:
+#    ...
 
   check:
     if: always()
 
     needs:
-      - docs
       - linters
-      - package-linters
-      - tests
+#      - tests
 
     runs-on: Ubuntu-latest
 
@@ -38,7 +26,6 @@ jobs:
       - name: Decide whether the needed jobs succeeded or failed
         uses: re-actors/alls-green@main
         with:
-          allowed-failures: docs, linters
-          allowed-skips: non-voting-flaky-job
+          allowed-failures:
+          allowed-skips:
           jobs: ${{ toJSON(needs) }}
-...
