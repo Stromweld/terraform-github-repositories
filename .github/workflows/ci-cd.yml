@@ -4,11 +4,7 @@ on:
   push:
 
 jobs:
-  linters:
-    - markdown-lint
-    - terraform-lint
-    - terraform-fmt
-    - terraform-validate
+  linters: markdown-lint, terraform-lint, terraform-fmt, terraform-validate
 
 #  tests:
 #    ...

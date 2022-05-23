@@ -39,7 +39,7 @@ module "example" {
 | `github_repository_collaborators` | list(string) | [] | no | List of Collaborators to add to repository |
 | `github_branch` | map(string) | {} | no | Map of additional branches to create |
 | `github_branch_protection` | map(any) | no | { main = {} } |
-}
+
 ## Outputs
 
 | Name            | Description              |
