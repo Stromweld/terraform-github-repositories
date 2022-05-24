@@ -4,13 +4,13 @@ on:
 
 jobs:
   markdownlint:
-    uses: Stromweld/github-workflows/.github/workflows/markdownlint.yml
+    uses: Stromweld/github-workflows/.github/workflows/markdownlint.yml@main
 
   yamllint:
-    uses: Stromweld/github-workflows/.github/workflows/yamllint.yml
+    uses: Stromweld/github-workflows/.github/workflows/yamllint.yml@main
 
   terraformlint:
-    uses: Stromweld/github-workflows/.github/workflows/terraform-lint.yml
+    uses: Stromweld/github-workflows/.github/workflows/terraform-lint.yml@main
 
   check:
     if: always()
