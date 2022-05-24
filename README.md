@@ -13,8 +13,14 @@ Terraform module for GitHub Repositories
 ## Usage
 
 ```hcl
-module "example" {
-  source = "./"
+provider "github" {
+  owner = "OrgName"
+  token = var.github_token
+}
+
+module "repositories" {
+  source  = "app.terraform.io/Stromweld/repositories/github"
+  version = ">= 1.0.0"
 
   name = "example"
 }
@@ -38,7 +44,7 @@ module "example" {
 | `tf_module` | bool         | false | no | Enables Terraform Module features |
 | `github_repository_collaborators` | list(string) | [] | no | List of Collaborators to add to repository |
 | `github_branch` | map(string) | {} | no | Map of additional branches to create |
-| `github_branch_protection` | map(any) | no | { main = {} } |
+| `github_branch_protection` | map(any) | { main = {} } | no | Map of github_branch_protection attributes |
 
 ## Outputs
 

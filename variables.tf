@@ -56,8 +56,9 @@ variable "github_branch" {
   description = "Map of additional branches to create"
 }
 variable "github_branch_protection" {
-  type    = map(any)
-  default = { main = {} }
+  type        = map(any)
+  default     = { main = {} }
+  description = "Map of github_branch_protection attributes"
 }
 variable "cookbook" {
   type        = bool
