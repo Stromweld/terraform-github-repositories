@@ -1,21 +1,24 @@
 ---
 on:
   pull_request:
-  push:
 
 jobs:
+  markdownlint:
+    uses: Stromweld/github-workflows/.github/workflows/markdownlint.yml
+
+  yamllint:
+    uses: Stromweld/github-workflows/.github/workflows/yamllint.yml
+
+  terraformlint:
+    uses: Stromweld/github-workflows/.github/workflows/terraform-lint.yml
+
   check:
     if: always()
-
     needs:
-      - markdown-lint
-      - terraform-lint
-      - terraform-fmt
-      - terraform-validate
-      - yaml-lint
-
+      - markdownlint
+      - yamllint
+      - terraformlint
     runs-on: Ubuntu-latest
-
     steps:
       - name: Decide whether the needed jobs succeeded or failed
         uses: re-actors/alls-green@main
