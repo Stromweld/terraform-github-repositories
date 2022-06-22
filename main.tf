@@ -126,3 +126,12 @@ resource "github_repository_collaborator" "this" {
   permission                  = "push"                      # (Optional) The permission of the outside collaborator for the repository. Must be one of pull, push, maintain, triage or admin for organization-owned repositories. Must be push for personal repositories. Defaults to push.
   permission_diff_suppression = null                        # (Optional) Suppress plan diffs for triage and maintain. Defaults to false.
 }
+
+resource "github_actions_secret" "this" {
+  for_each = var.github_actions_secrets
+
+  repository      = github_repository.this.name
+  secret_name     = each.key
+  encrypted_value = try(each.value.encrypted_value, null)
+  plaintext_value = try(each.value.plaintext_value, null)
+}

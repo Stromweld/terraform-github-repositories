@@ -39,6 +39,7 @@ module "repositories" {
 | `pages` | map(any)     | {} | no | GitHub Pages configuration |
 | `topics` | list(string) | varies by repository type | no | The list of topics of the repository |
 | `template` | map(any)     | {} | no | Create repository from template repository |
+|`github_actions_secrets` | map(any) | {} | no | Github Actions Secrets |
 | `cookbook` | bool         | false | no | Enables Chef Cookbook features |
 | `terraform` | bool         | false | no | Enables Terraform features |
 | `tf_module` | bool         | false | no | Enables Terraform Module features |
