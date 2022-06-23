@@ -64,7 +64,6 @@ variable "github_actions_secrets" {
   type        = map(any)
   default     = {}
   description = "Github Actions Secrets"
-  sensitive   = true
 }
 variable "cookbook" {
   type        = bool
