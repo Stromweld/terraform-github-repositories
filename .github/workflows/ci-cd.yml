@@ -14,8 +14,6 @@ jobs:
 
   terraformlint:
     uses: Stromweld/github-workflows/.github/workflows/terraform-lint.yml@main
-    with:
-      TOKEN_TFC: ${{ secrets.TOKEN_TFC }}
 
   check:
     if: always()
