@@ -60,6 +60,11 @@ variable "github_branch_protection" {
   default     = { main = {} }
   description = "Map of github_branch_protection attributes"
 }
+variable "github_actions_secrets" {
+  type        = map(any)
+  default     = {}
+  description = "Github Actions Secrets"
+}
 variable "cookbook" {
   type        = bool
   default     = false
