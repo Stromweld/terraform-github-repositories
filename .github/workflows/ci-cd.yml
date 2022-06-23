@@ -14,8 +14,7 @@ jobs:
 
   terraformlint:
     uses: Stromweld/github-workflows/.github/workflows/terraform-lint.yml@main
-    with:
-      TOKEN_TFC: "${{ secrets.TOKEN_TFC }}"
+    secrets: inherit
 
   check:
     if: always()
