@@ -88,12 +88,6 @@ resource "github_branch_default" "this" {
 
 resource "github_branch_protection" "default" {
   for_each = var.github_branch_protection
-  # when a repo is being initialized/created you can run into race conditions
-  # by adding an explicit depends we force the repo to be created
-  # before it attempts to add branch protection
-  depends_on = [
-    github_repository.this,
-  ]
 
   repository_id                   = github_repository.this.node_id                                                            # (Required) The name or node ID of the repository associated with this branch protection rule.
   pattern                         = each.key == "main" ? data.github_branch.main.branch : github_branch.this[each.key].branch # (Required) Identifies the protection rule pattern.
@@ -112,10 +106,16 @@ resource "github_branch_protection" "default" {
     pull_request_bypassers          = null  # (Optional) The list of actor IDs that are allowed to bypass pull request requirements.
     require_code_owner_reviews      = null  # (Optional) Require an approved review in pull requests including files with a designated code owner. Defaults to false.
     required_approving_review_count = 0     # (Optional) Require x number of approvals to satisfy branch protection requirements. If this is specified it must be a number between 0-6. This requirement matches GitHub's API, see the upstream documentation for more information.
+    require_last_push_approval      = null  # (Optional) Require that The most recent push must be approved by someone other than the last pusher. Defaults to false
   }
-  push_restrictions   = null  # (Optional) The list of actor IDs that may push to the branch.
-  allows_deletions    = false # (Optional) Boolean, setting this to true to allow the branch to be deleted.
-  allows_force_pushes = false # (Optional) Boolean, setting this to true to allow force pushes on the branch.
+  restrict_pushes {         # (Optional) Restrict pushes to matching branches. See Restrict Pushes below for details.
+    blocks_creations = null # (Optional) Boolean, setting this to false allows people, teams, or apps to create new branches matching this rule. Defaults to true.
+    push_allowances  = null # (Optional) A list of actor Names/IDs that may push to the branch. Actor names must either begin with a "/" for users or the organization name followed by a "/" for teams. Organization administrators, repository administrators, and users with the Maintain role on the repository can always push when all other requirements have passed.
+  }
+  force_push_bypassers = null  # (Optional) The list of actor Names/IDs that are allowed to bypass force push restrictions. Actor names must either begin with a "/" for users or the organization name followed by a "/" for teams. If the list is not empty, allows_force_pushes should be set to false.
+  allows_deletions     = false # (Optional) Boolean, setting this to true to allow the branch to be deleted.
+  allows_force_pushes  = false # (Optional) Boolean, setting this to true to allow force pushes on the branch.
+  lock_branch          = null  # (Optional) Boolean, Setting this to true will make the branch read-only and preventing any pushes to it. Defaults to false
 }
 
 resource "github_repository_collaborator" "this" {
