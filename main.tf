@@ -108,9 +108,8 @@ resource "github_branch_protection" "default" {
     required_approving_review_count = 0     # (Optional) Require x number of approvals to satisfy branch protection requirements. If this is specified it must be a number between 0-6. This requirement matches GitHub's API, see the upstream documentation for more information.
     require_last_push_approval      = null  # (Optional) Require that The most recent push must be approved by someone other than the last pusher. Defaults to false
   }
-  dynamic "restrict_pushes" {
-    # (Optional) Restrict pushes to matching branches. See Restrict Pushes below for details. Only for org repos.
-    for_each = try(each.value.restrict_pushes, null)
+  dynamic "restrict_pushes" { # (Optional) Restrict pushes to matching branches. See Restrict Pushes below for details. Only for org repos.
+    for_each = try(each.value.restrict_pushes, {})
     content {
       blocks_creations = null # (Optional) Boolean, setting this to false allows people, teams, or apps to create new branches matching this rule. Defaults to true.
       push_allowances  = null # (Optional) A list of actor Names/IDs that may push to the branch. Actor names must either begin with a "/" for users or the organization name followed by a "/" for teams. Organization administrators, repository administrators, and users with the Maintain role on the repository can always push when all other requirements have passed.
