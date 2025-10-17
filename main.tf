@@ -112,16 +112,14 @@ resource "github_branch_protection" "default" {
     # (Optional) Restrict pushes to matching branches. See Restrict Pushes below for details. Only for org repos.
     for_each = try(each.value.restrict_pushes, null)
     content {
-      blocks_creations = null
-      # (Optional) Boolean, setting this to false allows people, teams, or apps to create new branches matching this rule. Defaults to true.
-      push_allowances = null
-      # (Optional) A list of actor Names/IDs that may push to the branch. Actor names must either begin with a "/" for users or the organization name followed by a "/" for teams. Organization administrators, repository administrators, and users with the Maintain role on the repository can always push when all other requirements have passed.
+      blocks_creations = null # (Optional) Boolean, setting this to false allows people, teams, or apps to create new branches matching this rule. Defaults to true.
+      push_allowances  = null # (Optional) A list of actor Names/IDs that may push to the branch. Actor names must either begin with a "/" for users or the organization name followed by a "/" for teams. Organization administrators, repository administrators, and users with the Maintain role on the repository can always push when all other requirements have passed.
     }
   }
-  force_push_bypassers = try(each.value.force_push_bypassers, null)  # (Optional) The list of actor Names/IDs that are allowed to bypass force push restrictions. Actor names must either begin with a "/" for users or the organization name followed by a "/" for teams. If the list is not empty, allows_force_pushes should be set to false.
-  allows_deletions     = false # (Optional) Boolean, setting this to true to allow the branch to be deleted.
-  allows_force_pushes  = false # (Optional) Boolean, setting this to true to allow force pushes on the branch.
-  lock_branch          = null  # (Optional) Boolean, Setting this to true will make the branch read-only and preventing any pushes to it. Defaults to false
+  force_push_bypassers = try(each.value.force_push_bypassers, null) # (Optional) The list of actor Names/IDs that are allowed to bypass force push restrictions. Actor names must either begin with a "/" for users or the organization name followed by a "/" for teams. If the list is not empty, allows_force_pushes should be set to false.
+  allows_deletions     = false                                      # (Optional) Boolean, setting this to true to allow the branch to be deleted.
+  allows_force_pushes  = false                                      # (Optional) Boolean, setting this to true to allow force pushes on the branch.
+  lock_branch          = null                                       # (Optional) Boolean, Setting this to true will make the branch read-only and preventing any pushes to it. Defaults to false
 }
 
 resource "github_repository_collaborator" "this" {
